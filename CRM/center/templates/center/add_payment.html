@@ -1,0 +1,16 @@
+{% extends "center/base.html" %}
+
+{% block content %}
+<h2><b>{{ student.full_name }}</b> to'lovi</h2>
+<form method="post">
+  {% csrf_token %}
+  <label>To'lov:</label><br>
+  {{ form.amount }}<br><br>
+  <label>To'lov usuli:</label><br>
+  {{ form.payment_method }}<br><br>
+    <div class="d-flex justify-content-between">
+        <a href="{% url 'group_detail' student.group.id %}"><button class="btn btn-primary"  type="button">❮ Orqaga</button></a>
+        <button type="submit" class="btn btn-success">Saqlash ✔</button>
+    </div>
+</form>
+{% endblock %}
