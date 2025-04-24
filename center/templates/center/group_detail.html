@@ -1,0 +1,78 @@
+{% extends "center/base.html" %}
+{% block content %}
+<h2>
+  {{ group.name }} - {{ group.course_name }}
+  <a href="{% url 'edit_group' group.id %}" class="btn btn-primary"><i class="bi bi-pen"></i></a>
+  <a href="{% url 'delete_group' group.id %}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+</h2>
+<p><strong>Boshlanish sanasi:</strong> {{ group.start_date }}</p>
+<p><strong>Tugash sanasi:</strong> {{ group.end_date }}</p>
+<p><strong>Dars kunlari:</strong> {{ group.days }}</p>
+<p><strong>Dars vaqti:</strong> {{ group.time }}</p>
+
+
+<div class="pb-2">
+    <a href="{% url 'home' %}" class="btn btn-primary">❮ Orqaga</a>
+    
+    <a href="{% url 'add_student' group.id %}" class="btn btn-success">Qo'shish <i class="bi bi-person-plus"></i></a>
+    
+    <a href="{% url 'attendance_view' group.id %}" class="btn btn-warning">Davomat <i class="bi bi-calendar-check"></i></a>
+    
+    <a href="{% url 'export_group_excel' group.id %}" class="btn btn-success"><i class="bi bi-filetype-xls"></i> Yuklab olish</a>
+</div>
+
+<h3>O‘quvchilar ro‘yxati</h3>
+<table border="1" cellpadding="10">
+  <thead> 
+    <tr>
+      <th style="width: 60px;">№</th>
+      <th>F.I.SH</th>
+      <th style="width: 160px;">Telefon</th>
+      <th style="width: 150px;">Pasport</th>
+      <th style="width: 150px;">JSHR</th>
+      <th style="width: 150px;">Qo‘shilgan sana</th>
+      <th style="width: 150px;">To‘lov (so'm)</th>
+      <th>Shartnoma</th>
+      <th style="width: 110px;">Harakatlar</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for student in students %}
+    <tr>
+      <td>{{ forloop.counter }}</td>
+      <td class="text-start">{{ student.full_name }}</td>
+      <td>{{ student.phone }}</td>
+      <td>{{ student.passport_series }} {{ student.passport_number }}</td>
+      <td>{{ student.jshr }}</td>
+      <td>{{ student.join_date }}</td>
+      <td class="text-success">
+
+        {% for payment in student.payments.all %}
+          {{ payment.amount|floatformat:0 }} <span class="text-secondary">({{payment.payment_method }})</span><br>
+        {% empty %}
+          <a href="{% url 'add_payment' student.id %}" class="text-danger">To‘lanmagan</a>
+        {% endfor %}
+      </td>
+      <td class="text-center">
+        <form method="post" action="{% url 'toggle_contract' student.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-sm {% if student.has_contract %}btn-success{% else %}btn-outline-secondary{% endif %}">
+            {% if student.has_contract %}
+              <i class="bi bi-check"></i> 
+            {% else %}
+              <i class="bi bi-x"></i>
+            {% endif %} 
+
+          </button>
+        </form>
+      </td>
+      <td>
+        <a href="{% url 'edit_student' student.id %}" class="btn btn-primary"><i class="bi bi-pen"></i></a>
+        <a href="{% url 'delete_student' student.id %}" class="btn btn-danger"><i class="bi bi-trash"></i></a>
+    </tr>
+    {% empty %}
+    <tr><td colspan="6" style="text-align: center; color: red;">Hozircha o'quvchilar mavjud emas</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends "center/base.html" %}
+{% block content %}
+
+<h2>Haqiqatan ham <b class="text-danger">{{ group.name }}</b> guruhini o‘chirmoqchimisiz?</h2>
+
+<form method="post">
+  {% csrf_token %}
+  <a href="{% url 'home' %}" class="btn btn-primary">❮ Yo‘q, qaytish</a>
+  <button type="submit" class="btn btn-danger">Ha, o‘chirish <i class="bi bi-trash"></i></button>
+</form>
+
+{% endblock %}
