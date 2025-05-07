@@ -1,0 +1,70 @@
+{% extends "center/base.html" %}
+{% block content %}
+
+<div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="forgotPasswordModalLabel">Parolni tiklash</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Yopish"></button>
+      </div>
+      <div class="modal-body text-center">
+        Administrator bilan bog'laning:  <br>
+        Email: <a href="mailto:abduvoitovdoniyor@gmail.com">abduvoitovdoniyor@gmail.com</a> <br>
+        Instagram:  <a href="https://www.instagram.com/abduvoitow/">@abduvoitow</a> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Yopish</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="login-container">
+  <h4 class="text-center mb-4">Kirish</h4>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="username" class="form-label">Fodalanuvchi nomi:</label>
+      <input type="username" name="username"  class="form-control {% if messages %}is-invalid{% endif %}" id="username" required>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Parol:</label>
+      <div class="input-group">
+        <input type="password" name="password"  class="form-control {% if messages %}is-invalid{% endif %}" id="password" required>
+        <span class="input-group-text {% if messages %}is-invalid{% endif %}" id="togglePassword">
+          <svg id="eyeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8a13.133 13.133 0 0 1-1.66 2.043C11.879 11.332 10.12 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.133 13.133 0 0 1 1.172 8z"/>
+            <path d="M8 5a3 3 0 1 0 0 6a3 3 0 0 0 0-6zM8 9a1 1 0 1 1 0-2a1 1 0 0 1 0 2z"/>
+          </svg>
+        </span>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Kirish</button>
+    {% if messages %}
+    <div class="invalid-feedback d-block pt-2 text-center">
+      {% for message in messages %}
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+      </svg>
+      {{ message }}
+      {% endfor %}
+    </div>
+    {% endif %}
+    <p class="mt-3 text-center">
+      <a href="" data-bs-toggle="modal" data-bs-target="#forgotPasswordModal">Parolni unutdingizmi?</a>
+    </p>
+  </form>
+</div>
+
+<style>
+
+  </style>
+
+  <script>
+ 
+  </script>
+
+
+{% endblock %}

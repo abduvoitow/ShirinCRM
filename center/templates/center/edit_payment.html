@@ -1,0 +1,65 @@
+{% extends "center/base.html" %}
+{% block content %}
+{% load widget_tweaks %}
+
+
+<!-- Bootstrap Confirm Delete Modal -->
+<div  class="modal fade" id="confirmDeleteModal" tabindex="-1" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header bg-light text-white ps-3 pe-3 pt-2 pb-2 m-0">
+        <h5 class="modal-title text-dark" id="confirmDeleteModalLabel">Tasdiqlang</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Yopish"></button>
+      </div>
+      <div class="modal-body">
+        Siz ushbu to'lovni o‘chirishni xohlaysizmi?
+      </div>
+      <div class="modal-footer d-flex justify-content-between p-2">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Yo‘q</button>
+        <form method="post" action="{% url 'delete_payment' payment.id %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-danger">Ha, o‘chirilsin</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="d-flex justify-content-between align-items-center flex-wrap page-title">
+  <h4>
+    {{ student.full_name }}
+    <span>{{ student.group }}</span>
+  </h4>
+  <div>
+
+<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteModal">
+  To‘lovni o‘chirish
+</button>
+
+  </div>
+</div>
+
+
+<form method="post" class="mt-3 p-3 form-crm">
+  {% csrf_token %}
+  
+  <div class="mb-3">
+    <label class="form-label">To'lov:</label>
+    {{ form.amount|add_class:"form-control" }}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label">To'lov usuli:</label>
+    {{ form.payment_method|add_class:"form-control" }}
+  </div>
+
+    <div class="d-flex justify-content-between">
+        <a href="{% url 'group_detail' student.group.id %}"><button class="btn btn-secondary"  type="button">❮ Orqaga</button></a>
+        <button type="submit" class="btn btn-primary">Saqlash<i class="bi bi-check-lg"></i></button>
+    </div>
+</form>
+{% endblock %}
+
+

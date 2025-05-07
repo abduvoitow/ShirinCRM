@@ -1,0 +1,283 @@
+    body{
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        letter-spacing: -0.01em;
+        background:  rgb(238 242 250);
+        padding: 20px 0px;
+        color: #333;
+        margin: 0;
+    }
+    
+
+    .input-group-text.is-invalid {
+        border: 1px solid #dc3545;
+        border-left: none;
+        background-color: #f8d7da;
+        color: #dc3545; 
+    }
+    .login-container {
+      max-width: 500px;
+      margin: auto;
+      margin-top: 10vh;
+      padding: 2rem;
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+    }
+    .login-container .form-control:focus {
+      box-shadow: none;
+      border-color: #007bff;
+    }
+    .login-container .btn-primary {
+      width: 100%;
+    }
+    .login-container .input-group-text {
+      cursor: pointer;
+      background-color: #ffffff;
+    }
+
+
+
+    h4{
+        color: #012970;
+    }
+
+    .page-title{
+        background-color: #ffffff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+        color: #012970;
+    }
+    .page-title h4{
+        text-transform: uppercase;
+    }
+    .page-title span{
+        font-size: 14px;
+        font-weight: bold;
+        color: #374c61;
+        text-transform: capitalize;
+        display: block;
+    }
+    .topbar{
+        background-color: #ffffff;
+        padding: 5px 10px;
+        text-align: center;
+        font-size: 17px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+        color: #012970;
+    }
+    .exit{
+        /* background-color: #ff4d4d; */
+        color: #012970;
+        padding: 5px 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+    }
+    .exit:hover i{
+        color: rgb(255, 66, 66);
+    }
+    .exit:hover{
+        color: #012970;
+    }
+    header{
+        background-color: #0d6efd;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+    }
+    .logo{
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+        font-size: 30px;
+    }
+    .form-crm{
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+    }
+    table{
+        width: 100%;
+        border-collapse: collapse;
+        white-space: nowrap;
+        box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+        border-radius: 5px;
+        padding: 10px;
+    }
+    td, th {
+        /* border: 1px solid #dddddd; */
+        padding: 5px;
+        text-align: center;
+    }
+    th{
+        background-color: #0d6efd;
+        color: rgb(255, 255, 255);
+    }
+
+    input{
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
+    label{
+        font-weight: bold;
+    }
+    select{
+        padding: 10px;
+        margin: 5px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
+    a{
+        text-decoration: none;
+
+    }
+    tr {
+        background-color: #ffffff;
+    }
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    .search:focus{
+        box-shadow: none;
+        outline: 2px solid #0d6efd; 
+    }
+    .search{
+        border-right: none;
+        position: relative;
+        left: 4px;  
+    }
+    #searchResults {
+        margin-top: 10px;
+        border-radius: 4px;
+    }
+
+    #searchResults ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    #searchResults li {
+        margin-bottom: 10px;
+        padding: 8px;
+        background-color: #fff;
+        box-shadow: 0px 0 30px #0129701a;
+        border-radius: 4px;
+        font-weight: bold;
+        color: #012970;
+    }
+
+    #searchResults li a {
+        text-decoration: none;
+        font-weight: 600;
+    }
+    .group-search{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0px;
+    }
+
+
+
+    #custom-toast-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1055;
+      }
+      
+      .custom-toast {
+        background: #ffffff;
+        border-left: 5px solid #0d6efd;
+        padding: 12px 16px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+        min-width: 260px;
+        max-width: 320px;
+        box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+        animation: slideIn 0.4s ease forwards;
+        border-right: 1px solid gray;
+        border-top: 1px solid gray;
+        border-bottom: 1px solid gray;
+      }
+      
+      .custom-toast-body {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      
+      .custom-toast-icon {
+        font-size: 20px;
+        margin-right: 10px;
+        color: #0d6efd;
+      }
+      
+      .close-toast {
+        background: none;
+        border: none;
+        font-size: 18px;
+        color: #333;
+        cursor: pointer;
+      }
+      
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(100px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+
+    @media screen and (max-width: 600px) {
+        .group-table{
+            overflow: scroll;
+        }
+        body {
+            padding: 10px 0px;
+            font-size: 12px;
+        }
+        h4{
+            font-size: 20px;
+        }
+        nav{
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo{
+            font-size: 20px;
+        }
+        table{
+            /* width: 700px; */
+            font-size: 12px;
+        }
+        .btn{
+            font-size: 12px;
+            padding: 5px 9px;
+        }
+        .form-control{
+            font-size: 12px;
+            padding: 5px 9px;
+        }
+
+    
+    }
+
+
+
+
+

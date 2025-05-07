@@ -1,0 +1,159 @@
+{% extends "center/base.html" %}
+{% block content %}
+{% load static %}
+
+{% if messages %}
+  <div id="custom-toast-container">
+    {% for message in messages %}
+      <div class="custom-toast show">
+        <div class="custom-toast-body">
+          <span class="custom-toast-icon">✅</span>
+          <span>{{ message }}</span>
+          <button class="close-toast" onclick="this.parentElement.parentElement.remove()">×</button>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<!-- Guruhni o‘chirishni tasdiqlovchi modal -->
+<div class="modal fade" id="confirmDeleteGroupModal" tabindex="-1" aria-labelledby="confirmDeleteGroupModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-light text-white ps-3 pe-3 pt-2 pb-2 m-0">
+          <h5 class="modal-title text-dark" id="confirmDeleteGroupModalLabel">Tasdiqlang</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Yopish"></button>
+        </div>
+        <div class="modal-body">
+          Siz ushbu <strong>{{ group.name }}</strong> guruhini o‘chirishni xohlaysizmi?
+        </div>
+        <div class="modal-footer d-flex justify-content-between p-2">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Yo‘q</button>
+          <form method="post" id="deleteGroupForm">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Ha, o‘chirilsin</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+<div class="mb-2">
+    <div class="topbar">
+        <div class="city">
+            Shirin Shahar
+        </div>
+        <div>
+            <a href="{% url 'logout' %}" class="exit">Chiqish <i class="bi bi-box-arrow-right"></i></a>
+        </div>
+    </div>
+    <header>
+        <div class="logo">
+            <img style="width:40px;" src="{% static 'image/logo.png' %}" alt="">
+             Digital Academy
+        </div>
+    </header>
+</div>
+
+
+
+
+
+
+    <div class="group-search">
+        <!-- <a  class="text-dark"> </a> -->
+        <h5 style="color: #012970;"><i class="bi bi-archive-fill"></i> Guruhlar</h5>
+        <form class="d-flex justify-content-center align-items-center" method="get" action="{% url 'home' %}">
+                <input class="form-control search" type="search" placeholder="Qidiruv..." aria-label="Search" name="q" value="{{ query }}">
+                <button style=" z-index: 1;" class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button>
+        </form>
+    </div>
+
+
+    <!-- Qidiruv natijalari -->
+    <div id="searchResults">
+        {% if query %}
+            {% if students %}
+                <ul>
+                    {% for student in students %}
+                        <li>
+                        
+                            {{ student.full_name }}
+                            
+                            <br>
+                            <small>
+                                <i class="bi bi-people"></i>  <a href="{% url 'group_detail' student.group.id %}">{{ student.group.name }}</a> <br>
+                                <i class="bi bi-telephone"></i> <a href="tel:{{ student.phone }}">{{ student.phone }} </a><br>
+                                <i class="bi bi-cash"></i> 
+                                {% if student.payments.all %}
+                                    <a href="{% url 'edit_payment' student.payments.last.id %}">{{ student.payments.last.amount|floatformat:0  }}  <span class="text-secondary">({{ student.payments.last.payment_method }})</span></a>
+                                {% else %}
+                                    <a href="{% url 'add_payment' student.id %}" class="text-danger">To'lanmagan</a>
+                                {% endif %}
+                            </small>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Hech qanday o‘quvchi topilmadi.</p>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <!-- Guruhlar jadvali -->
+    <div class="group-table">
+        <table>
+            <thead>
+                <tr>
+                    <th style="width: 45px;">№</th>
+                    <th>Guruh Nomi</th>
+                    <th>Dars vaqti</th>
+                    <th style="width: 200px;">Sana</th>
+                    <th style="width: 100px;">To‘lovlar</th>
+                    <th style="width: 110px;">Harakatlar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for group in groups %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td class="text-start">
+                    <a href="{% url 'group_detail' group.id %}">{{ group.name }}</a>
+                    <a href="{% url 'unarchive_group' group.id %}">
+                        <span class="badge bg-success  ms-2">Chiqarish</span>
+                    </a>
+                    </td>
+                    <td>{{ group.days }} | {{ group.time }}</td>
+                    <td>{{ group.start_date|date:"d.m.Y" }} - {{ group.end_date|date:"d.m.Y" }}</td>
+                    <td>{{ group.student_count }}/{{ group.paid_count }}</td>
+                    <td class="actions">
+                        <a href="{% url 'edit_group' group.id %}" class="btn btn-primary"><i class="bi bi-pencil-square"></i></a>
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmDeleteGroupModal" onclick="prepareGroupDelete({{ group.id }})"><i class="bi bi-trash"></i></a>                       
+                    </td>
+                </tr>
+                {% empty %}
+                <tr><td colspan="7" class="text-danger">Hozircha arxivda guruhlar mavjud emas</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+      <a href="{% url 'home' %}" class="btn btn-secondary shadow-lg rounded-5 d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; position: fixed; bottom: 20px; right: 20px;">
+        <img class="text-light" src="{% static 'image/svg/bxs-archive-out.svg' %}" alt="">
+      </a>
+
+
+    <script>
+        function prepareGroupDelete(groupId) {
+          const form = document.getElementById('deleteGroupForm');
+          form.action = `/guruhni_o'chirish/${groupId}/`;
+        }
+    </script>
+    <script>
+      setTimeout(() => {
+        document.querySelectorAll('.custom-toast').forEach(el => el.remove());
+      }, 2500);
+    </script>
+        
+{% endblock %}

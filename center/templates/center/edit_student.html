@@ -1,0 +1,50 @@
+{% extends "center/base.html" %}
+{% block content %}
+{% load widget_tweaks %}
+
+<div class="d-flex justify-content-between align-items-center flex-wrap page-title">
+  <h4>
+    {{ student.full_name }}
+    <span>{{ student.group }}</span>
+  </h4>
+  <div>
+    <strong>Sana:</strong> {{ student.group.start_date|date:"d.m.Y" }} -  {{ student.group.end_date|date:"d.m.Y" }}<br>
+    <strong>Vaqt:</strong> {{ student.group.days }} | {{ student.group.time }} <br>
+  </div>
+</div>
+
+<form method="post" class="mt-3 p-3 form-crm">
+  {% csrf_token %}
+
+  <div class="mb-3">
+    <label class="form-label" for="{{ form.full_name.id_for_label }}">F.I.SH:</label>
+    {{ form.full_name|add_class:"form-control" }}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="{{ form.phone.id_for_label }}">Telefon raqami:</label>
+    {{ form.phone|add_class:"form-control" }}
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="{{ form.passport_series.id_for_label }}">Pasport seriyasi:</label>
+    {{ form.passport_series|add_class:"form-control" }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="{{ form.passport_number.id_for_label }}">Pasport raqami:</label>
+    {{ form.passport_number|add_class:"form-control" }}
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="{{ form.jshr.id_for_label }}">JSHSHIR:</label>
+    {{ form.jshr|add_class:"form-control" }}
+  </div>
+
+  <div class="d-flex justify-content-between mt-3">
+    <a href="{% url 'group_detail' student.group.id %}">
+      <button class="btn btn-secondary" type="button">❮ Orqaga</button>
+    </a>
+    <button type="submit" class="btn btn-primary">Saqlash<i class="bi bi-check-lg"></i></button>
+  </div>
+</form>
+
+{% endblock %}
